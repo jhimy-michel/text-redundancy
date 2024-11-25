@@ -1,6 +1,6 @@
 # Text Redundancy Analyzer
 
-This project was built using python3.8.
+This project was built using python3.12.
 
 
 ## Problem description
@@ -54,7 +54,8 @@ We can ask again to the LLM with a specific prompt, something like:
 ```python
 prompt = """
 Analyze this medical note for redundancies:
-{note}
+{text}
+Explain why these parts are redundant.
 """
 ```
 This might work, but maybe processing again is expensive? and we might just ended up again with the same problem?
@@ -68,4 +69,18 @@ This might be cheaper than sending again the request to the LLM.
 Maybe both solutions together are the answer? 
 How do we evaluate the solutions?
 
+Okay so lets implement a tool that can be easily integrated into an existing pipeline or with the least effort taking into consideration the input, output and goal.
+
 ## Implementation
+
+Python has some interesting libraries for this purpose:
+1. https://huggingface.co/sentence-transformers?search_models=multi
+2. https://pypi.org/project/nltk/
+3. https://github.com/explosion/spaCy
+
+### Python example
+
+Simple implementation that received a text, in string.
+
+1. Split the text so it can be analyzed
+1. Detect redundant text (define a treshold)
